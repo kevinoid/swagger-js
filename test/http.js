@@ -171,10 +171,12 @@ describe('http', () => {
       const headers = new Headers()
       headers.append('Authorization', 'Basic hoop-la')
       headers.append('Authorization', 'Advanced hoop-la')
+      console.log('headers', headers)
 
       const res = fetchMock.mock('http://swagger.io', {headers})
 
       return fetch('http://swagger.io').then((_res) => {
+        console.log('_res.headers', _res.headers)
         return serializeRes(_res, 'https://swagger.io')
       }).then((resSerialize) => {
         expect(resSerialize.headers).toEqual({authorization: ['Basic hoop-la', 'Advanced hoop-la']})
